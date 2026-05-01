@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>iBita — Techstars Healthcare Accelerator 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --blue:#008FFE;--blue-dark:#005AB5;--blue-mid:#006FCC;
+  --blue-light:#E6F4FF;--blue-pale:#F0F8FF;--blue-muted:#B3DAFF;
+  --off:#F4F9FF;--dark:#122A4A;--mid:#3A5A7A;--gray:#6B84A0;
+  --white:#ffffff;--r:12px;
+  --card-shadow:0 2px 16px rgba(0,143,254,.09);
+  --card-hover:0 8px 28px rgba(0,143,254,.17);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;color:var(--dark);background:var(--white);-webkit-font-smoothing:antialiased}
+#nav{position:fixed;top:0;left:0;right:0;z-index:999;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 52px;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--blue-muted);transition:box-shadow .3s}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--blue);text-decoration:none;letter-spacing:.2px;cursor:pointer;flex-shrink:0}
+.nav-menu{display:flex;align-items:center;gap:4px;list-style:none}
+.nav-menu li a{display:block;padding:7px 14px;border-radius:50px;font-size:12.5px;font-weight:500;color:var(--mid);text-decoration:none;transition:all .18s;white-space:nowrap}
+.nav-menu li a:hover{background:var(--blue-light);color:var(--blue)}
+.nav-menu li a.active{background:var(--blue);color:#fff}
+.nav-cta{background:var(--blue);color:#fff!important;padding:8px 20px!important;border-radius:50px;font-weight:600!important;font-size:13px!important;transition:background .2s!important}
+.nav-cta:hover{background:var(--blue-dark)!important}
+.page{display:none;min-height:100vh;padding-top:62px}
+.page.active{display:block}
+.wrap{max-width:1120px;margin:0 auto;padding:72px 48px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.headline{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);line-height:1.08;color:var(--dark);margin-bottom:14px}
+.lead{font-size:16px;font-weight:300;color:var(--mid);max-width:560px;line-height:1.82;margin-bottom:48px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.g6{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.card{background:var(--white);border-radius:var(--r);border:1px solid var(--blue-muted);padding:28px 24px;transition:transform .22s,box-shadow .22s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--card-hover)}
+.card-top{border-top:3px solid var(--blue);border-left:none;border-right:none;border-bottom:none}
+.card-left{border-left:3px solid var(--blue);border-top:none;border-right:none;border-bottom:none;background:var(--off)}
+.c-icon{font-size:24px;margin-bottom:12px;line-height:1}
+.c-title{font-weight:600;font-size:15px;color:var(--dark);margin-bottom:7px}
+.c-body{font-size:13px;font-weight:300;color:var(--mid);line-height:1.78}
+#page-home{background:linear-gradient(148deg,var(--blue) 0%,#0075E0 52%,var(--blue-dark) 100%);display:none;min-height:100vh;padding-top:62px}
+#page-home.active{display:flex;flex-direction:column}
+.hero-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 48px 60px;max-width:820px;margin:0 auto;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);color:#fff;font-size:11px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;padding:7px 18px;border-radius:50px;margin-bottom:28px}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(50px,6.5vw,82px);font-weight:600;color:#fff;line-height:1.06;margin-bottom:20px}
+.hero-h1 em{font-style:italic;color:rgba(210,236,255,.9)}
+.hero-sub{font-size:17px;font-weight:300;color:rgba(255,255,255,.82);max-width:600px;line-height:1.78;margin-bottom:42px}
+.hero-pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:44px}
+.hpill{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.24);color:#fff;font-size:12px;font-weight:500;padding:6px 16px;border-radius:50px}
+.hero-nav-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;width:100%;max-width:820px}
+.hero-nav-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:var(--r);padding:18px 12px;cursor:pointer;text-align:center;transition:background .2s,transform .18s;font-family:'Outfit',sans-serif}
+.hero-nav-btn:hover{background:rgba(255,255,255,.22);transform:translateY(-3px)}
+.hnb-icon{font-size:22px;margin-bottom:8px;display:block}
+.hnb-label{font-size:12px;font-weight:600;color:rgba(255,255,255,.9)}
+.hnb-sub{font-size:10.5px;color:rgba(255,255,255,.6);margin-top:3px}
+.stats-strip{background:var(--blue);padding:18px 48px;display:flex;flex-wrap:wrap;justify-content:center;gap:36px}
+.stat-item{display:flex;align-items:center;gap:10px}
+.stat-n{font-size:20px;font-weight:700;color:#fff}
+.stat-l{font-size:11px;color:rgba(255,255,255,.72);max-width:110px;line-height:1.4}
+#page-problem{background:var(--off)}
+#page-how{background:var(--blue)}
+#page-how .eyebrow{color:rgba(210,236,255,.9)}
+#page-how .headline{color:#fff}
+#page-how .lead{color:rgba(255,255,255,.72)}
+.step-box{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.2);border-radius:var(--r);padding:22px 14px;text-align:center;transition:background .2s}
+.step-box:hover{background:rgba(255,255,255,.2)}
+.step-n{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:#fff;line-height:1;margin-bottom:8px}
+.step-t{font-size:12px;font-weight:600;color:rgba(210,236,255,.92);margin-bottom:6px}
+.step-b{font-size:11px;color:rgba(255,255,255,.65);line-height:1.6}
+#page-market{background:var(--off)}
+.mcard{background:var(--white);border-radius:var(--r);padding:28px 16px;text-align:center;border-top:3px solid var(--blue);box-shadow:var(--card-shadow)}
+.mcard-n{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:600;color:var(--blue);line-height:1}
+.mcard-l{font-size:12px;color:var(--mid);margin-top:6px}
+.rev-table{background:var(--white);border-radius:var(--r);padding:28px;box-shadow:var(--card-shadow);border-top:3px solid var(--blue)}
+.rev-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--blue-light)}
+.rev-row:last-child{border:none;padding-top:14px}
+.rv-l{font-size:13px;color:var(--mid)}
+.rv-v{font-weight:700;font-size:14px;color:var(--dark)}
+.rv-v.total{color:var(--blue);font-size:18px}
+.math-card{background:var(--blue);border-radius:var(--r);padding:28px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.math-big{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:600;color:#fff;line-height:1}
+.math-label{font-size:15px;font-weight:600;color:rgba(210,236,255,.9);margin:6px 0 16px}
+.math-extras{font-size:12px;color:rgba(255,255,255,.68);line-height:1.85}
+.quote-card{background:var(--blue-light);border-radius:var(--r);padding:28px;border-left:4px solid var(--blue)}
+.quote-h{font-weight:700;font-size:14px;color:var(--dark);margin-bottom:12px}
+.quote-body{font-size:13.5px;font-style:italic;color:var(--mid);line-height:1.8;margin-bottom:14px}
+.quote-sig{font-size:12px;font-weight:600;color:var(--dark)}
+.disc-card{background:var(--off);border-radius:var(--r);padding:28px}
+.disc-title{font-weight:700;font-size:14px;color:var(--dark);margin-bottom:16px}
+.disc-list{list-style:none}
+.disc-list li{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--mid);padding:5px 0}
+.disc-list li::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0}
+.mvp-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+.mvp-item{background:var(--blue-light);border-radius:10px;padding:14px 16px;display:flex;gap:10px}
+.mvp-ico{font-size:16px;flex-shrink:0;margin-top:1px}
+.mvp-title{font-weight:600;font-size:12px;color:var(--dark)}
+.mvp-sub{font-size:11px;color:var(--gray);margin-top:2px}
+#page-testimonials{background:var(--off)}
+.test-card{background:var(--white);border-radius:var(--r);border:1px solid var(--blue-muted);padding:26px 22px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.test-card:hover{transform:translateY(-4px);box-shadow:var(--card-hover)}
+.test-badge{display:inline-block;background:var(--blue-light);color:var(--blue-dark);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 11px;border-radius:50px;margin-bottom:14px;align-self:flex-start}
+.test-quote{font-size:13px;font-style:italic;color:var(--mid);line-height:1.82;flex:1;margin-bottom:18px;position:relative;padding-left:18px}
+.test-quote::before{content:'\201C';font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--blue);position:absolute;left:0;top:-6px;line-height:1}
+.test-sig{font-weight:600;font-size:12px;color:var(--dark)}
+.test-org{font-size:11px;color:var(--gray);margin-top:2px}
+.ceo-banner{background:var(--blue);border-radius:var(--r);padding:24px 28px;display:flex;align-items:center;gap:18px;margin-top:28px}
+.ceo-q{font-size:13.5px;font-style:italic;color:rgba(255,255,255,.9);line-height:1.72}
+.ceo-sig{font-size:12px;color:rgba(210,236,255,.8);margin-top:6px;font-weight:600}
+.table-scroll{overflow-x:auto;border-radius:var(--r);box-shadow:var(--card-shadow)}
+table{width:100%;border-collapse:collapse}
+thead th{background:var(--blue);color:#fff;padding:13px 10px;font-size:11.5px;font-weight:600;text-align:center;white-space:nowrap}
+thead th:first-child{text-align:left;min-width:180px}
+tbody td{padding:12px 10px;font-size:12.5px;text-align:center;border-bottom:1px solid var(--blue-light);background:var(--white)}
+tbody td:first-child{text-align:left;font-weight:500;color:var(--dark);background:var(--off)}
+tbody tr:hover td{background:var(--blue-light)}
+.t-yes{color:#186F3D;font-weight:700;font-size:15px}
+.t-no{color:#C0392B;font-size:15px}
+.t-part{color:#9C6000;font-size:11px;font-weight:600}
+.t-ibita{color:var(--blue);font-weight:700;font-size:15px}
+thead th.ibita-col{background:var(--blue-mid)}
+#page-business{background:var(--off)}
+.biz-badge{display:inline-block;background:var(--blue);color:#fff;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 11px;border-radius:50px;margin-bottom:12px}
+.biz-badge.sec{background:var(--blue-muted);color:var(--blue-dark)}
+.pricing-wrap{display:flex;gap:20px;margin-top:24px}
+.pricing-detail{flex:2;background:var(--white);border-radius:var(--r);padding:26px;border-top:3px solid var(--blue);box-shadow:var(--card-shadow)}
+.pricing-detail h4{font-weight:700;font-size:14px;color:var(--dark);margin-bottom:14px}
+.pricing-detail p{font-size:13px;color:var(--mid);margin:6px 0;line-height:1.65}
+.pricing-free{flex:1;background:var(--blue);border-radius:var(--r);padding:26px;text-align:center;color:#fff;display:flex;flex-direction:column;justify-content:center}
+.pricing-free h4{font-size:17px;font-weight:700;margin-bottom:10px}
+.pricing-free p{font-size:12.5px;color:rgba(255,255,255,.8);line-height:1.75}
+.team-card{background:var(--white);border-radius:var(--r);border:1px solid var(--blue-muted);padding:32px;border-top:4px solid var(--blue);box-shadow:var(--card-shadow)}
+.team-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--dark);margin-bottom:4px}
+.team-role{font-size:12px;font-weight:600;color:var(--blue);margin-bottom:20px}
+.team-pts{list-style:none}
+.team-pts li{display:flex;gap:9px;font-size:13px;color:var(--mid);line-height:1.58;padding:5px 0}
+.team-pts li::before{content:'▸';color:var(--blue);flex-shrink:0;font-size:11px;margin-top:3px}
+#page-ask{background:var(--blue-pale)}
+.mi-card{background:var(--white);border-radius:var(--r);padding:22px;border-top:3px solid var(--blue);box-shadow:var(--card-shadow)}
+.mi-qtr{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:1px;margin-bottom:6px}
+.mi-title{font-weight:700;font-size:15px;color:var(--dark);margin-bottom:8px}
+.mi-body{font-size:12.5px;color:var(--mid);line-height:1.68}
+.ask-box{background:var(--blue);border-radius:var(--r);padding:40px;text-align:center;color:#fff;margin-top:32px}
+.ask-box h3{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;margin-bottom:14px}
+.ask-box p{font-size:14px;color:rgba(255,255,255,.86);max-width:640px;margin:0 auto 18px;line-height:1.75}
+.ask-box a{color:#fff;font-weight:600;text-decoration:underline}
+#site-footer{background:var(--dark);padding:24px 52px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#fff}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.38)}
+.footer-link{font-size:12px;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
+.footer-link:hover{color:var(--blue)}
+@media(max-width:960px){
+  #nav{padding:0 20px}.nav-menu{display:none}
+  .wrap{padding:48px 20px}
+  .g2,.g3,.g4,.g6,.hero-nav-grid,.mvp-row{grid-template-columns:1fr 1fr}
+  .pricing-wrap{flex-direction:column}
+  #site-footer{padding:18px 20px}
+  .stats-strip{gap:18px;padding:16px 20px}
+}
+@media(max-width:580px){
+  .g2,.g3,.g4,.g6,.hero-nav-grid,.mvp-row{grid-template-columns:1fr}
+  .hero-h1{font-size:42px}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="nav-logo" onclick="show('home')" href="#">iBita</a>
+  <ul class="nav-menu">
+    <li><a href="#" class="active" onclick="show('home');return false">Home</a></li>
+    <li><a href="#" onclick="show('problem');return false">Problem</a></li>
+    <li><a href="#" onclick="show('solution');return false">Solution</a></li>
+    <li><a href="#" onclick="show('how');return false">How It Works</a></li>
+    <li><a href="#" onclick="show('market');return false">Market</a></li>
+    <li><a href="#" onclick="show('traction');return false">Traction</a></li>
+    <li><a href="#" onclick="show('testimonials');return false">Testimonials</a></li>
+    <li><a href="#" onclick="show('competitive');return false">Competitive</a></li>
+    <li><a href="#" onclick="show('business');return false">Business</a></li>
+    <li><a href="#" onclick="show('team');return false">Team</a></li>
+    <li><a href="#" class="nav-cta" onclick="show('ask');return false">The Ask</a></li>
+  </ul>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="hero-inner">
+    <h1 class="hero-h1">Your concern,<br><em>delivered to your</em><br>care team.</h1>
+    <p class="hero-sub">iBita is a multilingual, HIPAA-aware mobile and web platform creating a 24/7 direct communication bridge between patients, families, staff, and healthcare providers — combining complaint management, survey automation, voice messaging, anonymous reporting, and unbiased AI in one accessible app.</p>
+    <div class="hero-pills">
+      <span class="hpill">&#128274; HIPAA-Aware</span>
+      <span class="hpill">&#127760; 4 Languages</span>
+      <span class="hpill">&#128100; Anonymous Reporting</span>
+      <span class="hpill">&#129302; Unbiased AI/ML</span>
+      <span class="hpill">&#9855; ADA Compliant</span>
+      <span class="hpill">&#127973; Free for Patients</span>
+    </div>
+    <div class="hero-nav-grid">
+      <div class="hero-nav-btn" onclick="show('problem')"><span class="hnb-icon">&#128222;</span><div class="hnb-label">The Problem</div><div class="hnb-sub">Why healthcare is broken</div></div>
+      <div class="hero-nav-btn" onclick="show('solution')"><span class="hnb-icon">&#128193;</span><div class="hnb-label">The Solution</div><div class="hnb-sub">Platform overview</div></div>
+      <div class="hero-nav-btn" onclick="show('market')"><span class="hnb-icon">&#128200;</span><div class="hnb-label">Market</div><div class="hnb-sub">$400B+ opportunity</div></div>
+      <div class="hero-nav-btn" onclick="show('testimonials')"><span class="hnb-icon">&#127942;</span><div class="hnb-label">Testimonials</div><div class="hnb-sub">Hospital staff feedback</div></div>
+      <div class="hero-nav-btn" onclick="show('ask')"><span class="hnb-icon">&#128640;</span><div class="hnb-label">The Ask</div><div class="hnb-sub">Partner with us</div></div>
+    </div>
+  </div>
+  <div id="site-footer"><span class="footer-brand">iBita</span><span class="footer-copy">&#169; 2026 iBita Inc. &middot; Minority Woman-Owned C-Corporation</span><a href="mailto:support@ibitainc.com" class="footer-link">support@ibitainc.com</a></div>
+</div>
+
+<!-- PROBLEM -->
+<div class="page" id="page-problem">
+  <div class="stats-strip">
+    <div class="stat-item"><span class="stat-n">80%</span><span class="stat-l">complaints never reach right dept</span></div>
+    <div class="stat-item"><span class="stat-n">&lt;30%</span><span class="stat-l">HCAHPS survey response rate</span></div>
+    <div class="stat-item"><span class="stat-n">$28B+</span><span class="stat-l">annual cost of preventable re-admissions</span></div>
+    <div class="stat-item"><span class="stat-n">47%</span><span class="stat-l">rise in hospital workplace violence since 2020</span></div>
+  </div>
+  <div class="wrap">
+    <div class="eyebrow">The Problem</div>
+    <h2 class="headline">Healthcare communication is broken — and patients pay the price</h2>
+    <p class="lead">Patients, families, and staff face a system that fails them at every turn. Providers pay the price in citations, lost star ratings, and lost revenue.</p>
+    <div class="g3">
+      <div class="card card-top"><div class="c-icon">&#128222;</div><div class="c-title">Voicemail Maze</div><p class="c-body">Patients and/ or family members’ voices, concerns, complaints and requests generally fall through the cracks. Messages are manually re-entered hours later — or lost. No 24/7 real-time access to the right department exists anywhere in the current system.</p></div>
+      <div class="card card-top"><div class="c-icon">&#128203;</div><div class="c-title">Outdated Surveys</div><p class="c-body">HCAHPS surveys are mailed weeks after discharge by third-party vendors with response rates under 30%. Questions are generic, non-multilingual, and miss entire demographic groups — producing inaccurate star ratings that directly affect CMS reimbursement and provider funding.</p></div>
+      <div class="card card-top"><div class="c-icon">&#128263;</div><div class="c-title">Silenced Voices</div><p class="c-body">Staff fear retaliation for reporting safety issues. Minority and non-English-speaking patients cannot navigate English-only systems. Anonymous reporting does not exist. Workplace violence in healthcare has risen 47% since 2020, partly because concerns go unheard and unresolved.</p></div>
+    </div>
+  </div>
+  <div id="site-footer"><span class="footer-brand">iBita</span><span class="footer-copy">&#169; 2026 iBita Inc. &middot; Minority Woman-Owned C-Corporation</span><a href="mailto:support@ibitainc.com" class="footer-link">support@ibitainc.com</a></div>
+</div>
+
+<!-- SOLUTION -->
+<div class="page" id="page-solution">
+  <div class="wrap">
+    <div class="eyebrow">The Solution</div>
+    <h2 class="headline">iBita — The All-in-One Healthcare Communication Platform</h2>
+    <p class="lead">A multilingual mobile and web app creating a 24/7 direct bridge between patients and providers — replacing four to six separate vendor subscriptions with one seamless platform.</p>
+    <div class="g3">
+      <div class="card card-left"><div class="c-icon">&#128193;</div><div class="c-title">Structured Survey Flow</div><p class="c-body">6-step guided complaint submission routes directly to the correct department — billing, personnel, or healthcare — with structured patient data, never free text lost in a phone system.</p></div>
+      <div class="card card-left"><div class="c-icon">&#127908;</div><div class="c-title">Voice and Text Messaging</div><p class="c-body">Record a voice note or type your concern. Audio is transmitted securely alongside full structured report data to the appropriate supervisor in real time, 24/7.</p></div>
+      <div class="card card-left"><div class="c-icon">&#128100;</div><div class="c-title">Anonymous Reporting</div><p class="c-body">Staff and patients can submit full reports with zero identity collection — eliminating fear of retaliation and enabling the honest, complete feedback that providers need to improve.</p></div>
+      <div class="card card-left"><div class="c-icon">&#127760;</div><div class="c-title">4 Languages</div><p class="c-body">English, Spanish, Mandarin, and Farsi — complete UI translation, not just labels. Every alert, message, and survey localizes instantly to the user's selected language.</p></div>
+      <div class="card card-left"><div class="c-icon">&#128202;</div><div class="c-title">Supervisor Dashboard</div><p class="c-body">Dedicated received messages tab, sortable reports by date, sender, and service date, with swipe-to-resolve workflow — completely separate from staff's own sent messages.</p></div>
+      <div class="card card-left"><div class="c-icon">&#129302;</div><div class="c-title">Unbiased AI / ML</div><p class="c-body">AI trained on cleansed, demographically representative data for pattern detection, customized education, exposure tracking, and identification of at-risk patient populations.</p></div>
+    </div>
+  </div>
+  <div id="site-footer"><span class="footer-brand">iBita</span><span class="footer-copy">&#169; 2026 iBita Inc. &middot; Minority Woman-Owned C-Corporation</span><a href="mailto:support@ibitainc.com" class="footer-link">support@ibitainc.com</a></div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="page" id="page-how">
+  <div class="wrap">
+    <div class="eyebrow">How It Works</div>
+    <h2 class="headline">From concern to resolution</h2>
+    <p class="lead">A guided, step-by-step flow ensures every report is complete and reaches the right team. Nothing gets missed. Nothing falls through the cracks.</p>
+    <div class="g6">
+      <div class="step-box"><div class="step-n">01</div><div class="step-t">Select Language</div><p class="step-b">English, Spanish, Mandarin, or Farsi — the full UI updates instantly</p></div>
+      <div class="step-box"><div class="step-n">02</div><div class="step-t">Accept Agreements</div><p class="step-b">HIPAA Privacy and Terms acknowledged in-app, fully readable</p></div>
+      <div class="step-box"><div class="step-n">03</div><div class="step-t">Pick Facility</div><p class="step-b">Live directory — exact parent facility and child department</p></div>
+      <div class="step-box"><div class="step-n">04</div><div class="step-t">Patient Details</div><p class="step-b">Name, DOB, date of service — structured data, not free text</p></div>
+      <div class="step-box"><div class="step-n">05</div><div class="step-t">Choose Concern</div><p class="step-b">Billing, Personnel, or Healthcare — auto-routed to right team</p></div>
+      <div class="step-box"><div class="step-n">06</div><div class="step-t">Submit</div><p class="step-b">Voice or text, full review screen, then submit — done</p></div>
+    </div>
+  </div>
+  <div id="site-footer"><span class="footer-brand">iBita</span><span class="footer-copy">&#169; 2026 iBita Inc. &middot; Minority Woman-Owned C-Corporation</span><a href="mailto:support@ibitainc.com" class="footer-link">support@ibitainc.com</a></div>
+</div>
+
+<!-- MARKET -->
+<div class="page" id="page-market">
+  <div class="wrap">
+    <div class="eyebrow">Market Opportunity</div>
+    <h2 class="headline">A $400B+ addressable market with no all-in-one solution today</h2>
+    <p class="lead">iBita addresses every major healthcare provider and insurer in the United States — a market with urgent unmet demand and no current competitor offering all eight capabilities.</p>
+    <div class="g4" style="margin-bottom:28px">
+      <div class="mcard"><div class="mcard-n">6,090</div><div class="mcard-l">US Hospitals</div></div>
+      <div class="mcard"><div class="mcard-n">15,600</div><div class="mcard-l">Nursing Homes</div></div>
+      <div class="mcard"><div class="mcard-n">5,500</div><div class="mcard-l">Hospice Facilities</div></div>
+      <div class="mcard"><div class="mcard-n">900</div><div class="mcard-l">Health Insurers</div></div>
+    </div>
+    <div class="g2">
+      <div class="rev-table">
+        <h3 style="font-size:15px;font-weight:700;color:var(--dark);margin-bottom:18px">Revenue Per 300-Bed Acute Care Hospital</h3>
+        <div class="rev-row"><span class="rv-l">Implementation Fee (one-time)</span><span class="rv-v">~$500,000</span></div>
+        <div class="rev-row"><span class="rv-l">Annual Subscription (recurring)</span><span class="rv-v">~$110,000</span></div>
+        <div class="rev-row"><span class="rv-l">Training Fee (one-time)</span><span class="rv-v">~$30,000</span></div>
+        <div class="rev-row"><span class="rv-l" style="font-weight:700">Total Year-1 Value Per Hospital</span><span class="rv-v total">~$640,000</span></div>
+      </div>
+      <div class="math-card">
+        <div style="font-size:12px;color:rgba(210,236,255,.82);margin-bottom:8px">At just 1% market penetration</div>
+        <div class="math-big">60</div>
+        <div style="font-size:14px;color:rgba(210,236,255,.82);margin:2px 0">hospitals</div>
+        <div class="math-label">= $38.4M Year-1 Revenue</div>
+        <div class="math-extras">+ Ad revenue from free consumer base<br>+ Featured provider listings (cost-per-click)<br>+ Credit-based renewal incentives</div>
+      </div>
+    </div>
+  </div>
+  <div id="site-footer"><span class="footer-brand">iBita</span><span class="footer-copy">&#169; 2026 iBita Inc. &middot; Minority Woman-Owned C-Corporation</span><a href="mailto:support@ibitainc.com" class="footer-link">support@ibitainc.com</a></div>
+</div>
+
+<!-- TRACTION -->
+<div class="page" id="page-traction">
+  <div class="wrap">
+    <div class="eyebrow">Traction and Validation</div>
+    <h2 class="headline">Proven demand — from the C-suite down to the bedside</h2>
+    <p class="lead">Real institutional validation, extensive customer discovery across every hospital role, and a working MVP ready to scale with Techstars.</p>
+    <div class="g2">
+      <div class="quote-card">
+        <div class="quote-h">&#127942; Letter of Support — Hospital CEO</div>
+        <p class="quote-body">"iBita can transform and improve the healthcare system and there is a need and a market for it. iBita's novel features are beneficial for both healthcare providers and consumers. Bita Bakhtjou has discussed her proposed innovation and features with my team and I, including our risk management and IT staff, and we concur."</p>
+        <div class="quote-sig">— John T. Chapman<br>President and CEO, San Antonio Regional Hospital</div>
+      </div>
+      <div class="disc-card">
+        <div class="disc-title">Customer Discovery Interviews — All Positive Feedback</div>
+        <ul class="disc-list">
+          <li>Hospital CEO and COO</li>
+          <li>Risk Management Supervisors</li>
+          <li>IT Managers</li>
+          <li>Nursing Supervisors</li>
+          <li>Patient Relations Staff</li>
+          <li>Physicians and Nurses</li>
+          <li>Patients and Family Members</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mvp-row">
+      <div class="mvp-item"><div class="mvp-ico">&#9989;</div><div><div class="mvp-title">Live Survey Flow</div><div class="mvp-sub">6-step complaint submission deployed</div></div></div>
+      <div class="mvp-item"><div class="mvp-ico">&#9989;</div><div><div class="mvp-title">Voice and Text Messaging</div><div class="mvp-sub">Multilingual, secure, anonymous-capable</div></div></div>
+      <div class="mvp-item"><div class="mvp-ico">&#9989;</div><div><div class="mvp-title">Supervisor Dashboard</div><div class="mvp-sub">Sort, resolve, manage — live</div></div></div>
+      <div class="mvp-item"><div class="mvp-ico">&#128260;</div><div><div class="mvp-title">Beta Partnerships</div><div class="mvp-sub">Active conversations with facilities</div></div></div>
+      <div class="mvp-item"><div class="mvp-ico">&#128260;</div><div><div class="mvp-title">EHR Integration R&D</div><div class="mvp-sub">Interface assessment underway</div></div></div>
+    </div>
+  </div>
+  <div id="site-footer"><span class="footer-brand">iBita</span><span class="footer-copy">&#169; 2026 iBita Inc. &middot; Minority Woman-Owned C-Corporation</span><a href="mailto:support@ibitainc.com" class="footer-link">support@ibitainc.com</a></div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="page" id="page-testimonials">
+  <div class="wrap">
+    <div class="eyebrow">Testimonials — San Antonio Regional Hospital</div>
+    <h2 class="headline">What every department said after working with iBita</h2>
+    <p class="lead">After presenting the iBita concept and working with staff across every level of San Antonio Regional Hospital, the feedback from all departments was unanimous and overwhelmingly positive.</p>
+    <div class="g3" style="margin-bottom:28px">
+      <div class="test-card"><div class="test-badge">Patient Relations</div><p class="test-quote">At patient relations, we receive constant calls from patients and families about concerns and complaints. Most go to voicemail, are manually re-entered hours later, and cause significant delays. iBita would resolve these delays entirely and result in faster, more efficient handling of every concern from the moment it is submitted.</p><div class="test-sig">Patient Relations Department</div><div class="test-org">San Antonio Regional Hospital</div></div>
+      <div class="test-card"><div class="test-badge">Risk Management</div><p class="test-quote">Risk management actively encourages staff and patients to share concerns so we can improve quality of care — but fear and friction prevent most of them from doing so. iBita's anonymous reporting feature would be a significant help. It gives people the platform and the safety to speak up without fear, which is exactly what we need.</p><div class="test-sig">Risk Management Supervisor</div><div class="test-org">San Antonio Regional Hospital</div></div>
+      <div class="test-card"><div class="test-badge">IT Management</div><p class="test-quote">The ease of use and user-friendly design of iBita stood out immediately. The direct filing of complaints through the platform — rather than through call centers and manual data entry — is exactly what healthcare facilities need. This kind of tool could benefit not just healthcare but many other industries.</p><div class="test-sig">IT Manager</div><div class="test-org">San Antonio Regional Hospital</div></div>
+      <div class="test-card"><div class="test-badge">Nursing Supervision</div><p class="test-quote">iBita's features and solutions for quality of care, self-advocacy, education, and after-care are exactly what patients and nursing staff need. The platform's contribution to patient satisfaction and direct communication would make a real and measurable difference in how we deliver and evaluate care quality across every unit.</p><div class="test-sig">Nursing Supervisor</div><div class="test-org">San Antonio Regional Hospital</div></div>
+      <div class="test-card"><div class="test-badge">Chief Operating Officer</div><p class="test-quote">The potential to avoid unnecessary costs, retain patients, increase revenue, and use staff time and resources efficiently is immediately clear with iBita. These are exactly the outcomes hospital leadership focuses on. The platform directly addresses the operational performance metrics that matter most to a facility of our size and scope.</p><div class="test-sig">Chief Operating Officer</div><div class="test-org">San Antonio Regional Hospital</div></div>
+      <div class="test-card"><div class="test-badge">Patients and Families</div><p class="test-quote">Finally a way to be heard and not be ignored. An easy tool to follow up, get real answers, and receive correct information — not just voicemail. A place where my concern actually reaches the right person in the hospital instead of disappearing into a phone system that no one monitors after hours.</p><div class="test-sig">Patients and Family Members</div><div class="test-org">San Antonio Regional Hospital — Multiple Interviews</div></div>
+    </div>
+    <div class="ceo-banner">
+      <div style="font-size:28px;flex-shrink:0">&#127942;</div>
+      <div>
+        <p class="ceo-q">"I am highly supportive of the development of the iBita application as a solution to specific healthcare communication and educational needs. I would use it in my hospital and community and would recommend it to other care-providers. I believe this application can disrupt the healthcare industry. iBita's objective to lower readmission rates, increase quality of care, facilitate direct connections, and create a platform for sharing resources will make for a healthier and more educated society."</p>
+        <div class="ceo-sig">— John T. Chapman, President and CEO, San Antonio Regional Hospital</div>
+      </div>
+    </div>
+  </div>
+  <div id="site-footer"><span class="footer-brand">iBita</span><span class="footer-copy">&#169; 2026 iBita Inc. &middot; Minority Woman-Owned C-Corporation</span><a href="mailto:support@ibitainc.com" class="footer-link">support@ibitainc.com</a></div>
+</div>
+
+<!-- COMPETITIVE -->
+<div class="page" id="page-competitive">
+  <div class="wrap">
+    <div class="eyebrow">Competitive Landscape</div>
+    <h2 class="headline">No one delivers all 8 capabilities — iBita does</h2>
+    <p class="lead">Every competitor addresses only a fragment of the problem. iBita is the only platform combining all eight capabilities in one HIPAA-aware, ADA-compliant, multilingual app.</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align:left">Capability</th>
+            <th>Press Ganey</th><th>Midas+</th><th>Epic Portal</th><th>Medallia</th>
+            <th class="ibita-col">iBita &#10022;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Direct Complaint Routing — 24/7</td><td><span class="t-no">&#10007;</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-part">Partial</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-ibita">&#10003;</span></td></tr>
+          <tr><td>Anonymous Staff Reporting</td><td><span class="t-no">&#10007;</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-ibita">&#10003;</span></td></tr>
+          <tr><td>Multilingual — 4+ Languages</td><td><span class="t-no">&#10007;</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-part">Partial</span></td><td><span class="t-ibita">&#10003;</span></td></tr>
+          <tr><td>Voice Message Submission</td><td><span class="t-no">&#10007;</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-ibita">&#10003;</span></td></tr>
+          <tr><td>Customized Survey Delivery</td><td><span class="t-part">Partial</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-part">Partial</span></td><td><span class="t-yes">&#10003;</span></td><td><span class="t-ibita">&#10003;</span></td></tr>
+          <tr><td>Unbiased AI / ML Data Training</td><td><span class="t-no">&#10007;</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-ibita">&#10003;</span></td></tr>
+          <tr><td>Healthcare Location Finder</td><td><span class="t-no">&#10007;</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-ibita">&#10003;</span></td></tr>
+          <tr><td>Free for Patients — Consumer App</td><td><span class="t-no">&#10007;</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-part">Partial</span></td><td><span class="t-no">&#10007;</span></td><td><span class="t-ibita">&#10003;</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="text-align:center;margin-top:20px;font-size:13px;color:var(--mid);font-style:italic"><strong style="color:var(--blue)">iBita is the only platform</strong> built by a licensed Health Facilities Evaluator Nurse who personally filed and investigated the exact complaints the platform handles.</p>
+  </div>
+  <div id="site-footer"><span class="footer-brand">iBita</span><span class="footer-copy">&#169; 2026 iBita Inc. &middot; Minority Woman-Owned C-Corporation</span><a href="mailto:support@ibitainc.com" class="footer-link">support@ibitainc.com</a></div>
+</div>
+
+<!-- BUSINESS -->
+<div class="page" id="page-business">
+  <div class="wrap">
+    <div class="eyebrow">Business Model</div>
+    <h2 class="headline">Recurring B2B subscriptions plus a consumer flywheel</h2>
+    <p class="lead">Three revenue streams that reinforce each other. The free consumer app drives adoption, which increases provider network value, which generates advertising revenue at zero additional cost.</p>
+    <div class="g3" style="margin-bottom:28px">
+      <div class="card card-top"><div class="biz-badge">Primary Revenue</div><div class="c-icon">&#128188;</div><div class="c-title">Provider Subscriptions</div><p class="c-body">Hospitals, nursing homes, hospice, and insurers pay implementation plus annual subscription fees. Credit-based renewals reward providers for quality improvements — tying iBita's success directly to measurable patient outcomes.</p></div>
+      <div class="card card-top"><div class="biz-badge sec">Secondary Revenue</div><div class="c-icon">&#127919;</div><div class="c-title">Featured Listings</div><p class="c-body">Healthcare providers pay cost-per-click or cost-per-lead to appear in iBita's consumer healthcare location search — the Google Ads model built exclusively for the healthcare industry and its engaged, intent-driven audience.</p></div>
+      <div class="card card-top"><div class="biz-badge sec">Secondary Revenue</div><div class="c-icon">&#128226;</div><div class="c-title">Healthcare Advertising</div><p class="c-body">Targeted, healthcare-relevant display ads shown to the growing free consumer user base browsing educational content, location services, and health resources — a zero-CAC revenue stream that scales automatically with consumer adoption.</p></div>
+    </div>
+    <div class="pricing-wrap">
+      <div class="pricing-detail">
+        <h4>Sample Deal — 300-Bed Acute Care Hospital</h4>
+        <p><strong>Year 1:</strong> $500K implementation + $30K training + $110K subscription = <strong style="color:var(--blue)">$640K total</strong></p>
+        <p style="margin-top:10px"><strong>Year 2+:</strong> $110,000 per year recurring — credit-based incentive pricing drives long-term retention and upsell</p>
+        <p style="margin-top:10px;font-size:11.5px;color:var(--gray)">Pricing varies by facility size, staff count, and services selected. A referral system and credit-based incentive pricing tied to quality-of-care metrics are key competitive differentiators that set iBita apart.</p>
+      </div>
+      <div class="pricing-free">
+        <h4>FREE for Patients</h4>
+        <p>Patients use iBita at zero cost — driving mass adoption, increasing the network value for providers, and generating advertising revenue at zero additional customer acquisition cost.</p>
+      </div>
+    </div>
+  </div>
+  <div id="site-footer"><span class="footer-brand">iBita</span><span class="footer-copy">&#169; 2026 iBita Inc. &middot; Minority Woman-Owned C-Corporation</span><a href="mailto:support@ibitainc.com" class="footer-link">support@ibitainc.com</a></div>
+</div>
+
+<!-- TEAM -->
+<div class="page" id="page-team">
+  <div class="wrap">
+    <div class="eyebrow">The Team</div>
+    <h2 class="headline">Built by insiders — an unfair advantage no competitor can replicate</h2>
+    <p class="lead">No competitor was built by someone who personally filed and investigated the exact complaints their platform handles. That is iBita's structural edge.</p>
+    <div class="g2" style="margin-bottom:24px">
+      <div class="team-card">
+        <div class="team-name">Bita Bakhtjou, RN</div>
+        <div class="team-role">CEO and Founder &middot; Principal Investigator &middot; 100% Full-Time</div>
+        <ul class="team-pts">
+          <li>Registered Nurse — direct patient care across multiple facility types and care settings</li>
+          <li>Licensed Health Facilities Evaluator Nurse — conducted real hospital compliance inspections for the state of California</li>
+          <li>B.S. in Nursing plus MBA in Marketing, Sales and Advertising</li>
+          <li>Years in healthcare, education and patient advocacy in the US and abroad, including underserved and underfunded facilities</li>
+          <li>Has personally filed and investigated the exact complaints iBita handles — no other founder has this experience</li>
+          <li>100% full-time dedicated to iBita's mission of affordable, accessible healthcare for all</li>
+        </ul>
+      </div>
+      <div class="team-card">
+        <div class="team-name">Arezou Bakhtjou</div>
+        <div class="team-role">Co-Founder &middot; Legal, Ethics and AI Compliance</div>
+        <ul class="team-pts">
+          <li>B.S. in Chemistry plus Seasoned Attorney who has successfully run her own law firm for years</li>
+          <li>CACJ Board of Governors member — one of California's most respected legal organizations</li>
+          <li>Served two terms on the Alameda County Judicial Appointments Evaluation Committee working with the California Governor's Office</li>
+          <li>Recognized speaker and content developer on bias, ethics, and AI — directly relevant to iBita's core AI ethics mission</li>
+          <li>Technology legal expert: blockchain, NFTs, and emerging tech law — content developer for advanced legal education courses</li>
+          <li>Expert in HIPAA compliance, contract development and AI ethics frameworks</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ceo-banner">
+      <div style="font-size:28px;flex-shrink:0">&#127942;</div>
+      <div>
+        <p class="ceo-q">"iBita can transform and improve the healthcare system and there is a need and a market for it. Bita Bakhtjou has discussed her proposed innovation and features with my team and I, including our risk management and IT staff, and we concur that iBita can transform and improve the healthcare system."</p>
+        <div class="ceo-sig">— John T. Chapman, President and CEO, San Antonio Regional Hospital</div>
+      </div>
+    </div>
+  </div>
+  <div id="site-footer"><span class="footer-brand">iBita</span><span class="footer-copy">&#169; 2026 iBita Inc. &middot; Minority Woman-Owned C-Corporation</span><a href="mailto:support@ibitainc.com" class="footer-link">support@ibitainc.com</a></div>
+</div>
+
+<!-- THE ASK -->
+<div class="page" id="page-ask">
+  <div class="wrap">
+    <div class="eyebrow">Milestones and The Ask</div>
+    <h2 class="headline">Techstars accelerates iBita's path to first revenue</h2>
+    <p class="lead">A clear, executable 12-month roadmap already backed by institutional validation, a working MVP.</p>
+    <div class="g3" style="margin-bottom:32px">
+      <div class="mi-card"><div class="mi-qtr">Q2 2026</div><div class="mi-title">Beta Partnerships</div><p class="mi-body">Secure 2 to 3 hospital beta agreements via the Techstars network and warm introductions from the founder's professional network of healthcare executives, risk managers, and nursing leadership.</p></div>
+      <div class="mi-card"><div class="mi-qtr">Q3 2026</div><div class="mi-title">First Paying Customer</div><p class="mi-body">A hospital or nursing home on a full annual subscription — B2B revenue model validated with a real enterprise customer paying a full contract value of approximately $640,000 Year-1.</p></div>
+      <div class="mi-card"><div class="mi-qtr">Q4 2026</div><div class="mi-title">Seed Round Close</div><p class="mi-body">$1.5M target — anchored by Techstars Demo Day momentum. Capital used for team expansion, HIPAA compliance certifications, and Phase II NSF application preparation.</p></div>
+      <div class="mi-card"><div class="mi-qtr">Q1 2027</div><div class="mi-title">AI Survey Expansion</div><p class="mi-body">Five demographic-specific survey sets launched for culturally appropriate patient outreach. Provisional patent filed on iBita's structured, categorized complaint-routing methodology.</p></div>
+      <div class="mi-card"><div class="mi-qtr">Q2 2027</div><div class="mi-title">EHR Integration Live</div><p class="mi-body">Bidirectional interface live with one major EHR system — demonstrating iBita's capability to connect with and transform existing provider infrastructure into a two-way communication channel.</p></div>
+    </div>
+    <div class="ask-box">
+      <h3>The Ask</h3>
+      <p>Techstars Healthcare Accelerator partnership — network access, mentorship, and investment to deploy iBita's MVP with the first three hospital beta customers, validate the B2B revenue model, and close a $1.5M seed round to transform healthcare communication for every patient and provider in the United States and beyond.</p>
+      <p style="font-size:14px;color:rgba(255,255,255,.82)">Bita Bakhtjou, RN &nbsp;&middot;&nbsp; CEO and Founder, iBita Inc.<br><a href="mailto:support@ibitainc.com">support@ibitainc.com</a> &nbsp;&middot;&nbsp; <a href="https://ibitainc.com">ibitainc.com</a></p>
+    </div>
+  </div>
+  <div id="site-footer"><span class="footer-brand">iBita</span><span class="footer-copy">&#169; 2026 iBita Inc. &middot; Minority Woman-Owned C-Corporation</span><a href="mailto:support@ibitainc.com" class="footer-link">support@ibitainc.com</a></div>
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-menu a').forEach(a=>a.classList.remove('active'));
+  const page=document.getElementById('page-'+id);
+  if(page){page.classList.add('active');window.scrollTo(0,0)}
+  document.querySelectorAll('.nav-menu a').forEach(a=>{
+    if(a.getAttribute('onclick')&&a.getAttribute('onclick').includes("'"+id+"'")){
+      a.classList.add('active');
+    }
+  });
+}
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').style.boxShadow=
+    window.scrollY>10?'0 2px 20px rgba(0,143,254,.12)':'none';
+});
+</script>
+</body>
+</html>
